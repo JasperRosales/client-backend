@@ -1,0 +1,52 @@
+{
+    "name": "client-backend",
+    "version": "0.0.0",
+    "private": true,
+    "type": "commonjs",
+    "scripts": {
+        "dev": "nodemon --watch src --exec ts-node src/index.ts",
+        "db:generate": "drizzle-kit generate",
+        "db:migrate": "drizzle-kit migrate",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "seed": "npx ts-node seed/seed.ts seed",
+        "seed:check": "npx ts-node seed/seed.ts check",
+        "seed:reset": "npx ts-node seed/seed.ts reset"
+    },
+    "dependencies": {
+        "@types/nodemailer": "^7.0.4",
+        "bcrypt": "^6.0.0",
+        "body-parser": "^2.2.1",
+        "compression": "^1.8.1",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "drizzle-kit": "^0.31.8",
+        "drizzle-orm": "^0.45.1",
+        "express": "^5.2.1",
+        "jsonwebtoken": "^9.0.3",
+        "node-cache": "^5.1.2",
+        "nodemailer": "^7.0.11",
+        "nodemon": "^3.1.11",
+        "pg": "^8.16.3",
+        "winston": "^3.19.0"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^6.0.0",
+        "@types/body-parser": "^1.19.6",
+        "@types/compression": "^1.8.1",
+        "@types/cookie-parser": "^1.4.10",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/jest": "^30.0.0",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@types/node": "^24.10.1",
+        "@types/supertest": "^6.0.3",
+        "@types/winston": "^2.4.4",
+        "jest-environment-jsdom": "^30.2.0",
+        "supertest": "^7.1.4",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3"
+    }
+}
