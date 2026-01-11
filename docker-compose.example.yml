@@ -1,0 +1,30 @@
+# Neon DB Configuration (Example)
+# This file contains example configuration for Neon PostgreSQL integration
+# Copy this to docker-compose.yml and update with your Neon connection string
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: client-app
+    environment:
+      # Neon DB Connection String
+      # Format: postgres://user:password@ep-xxx.region.neon.tech/database?sslmode=require
+      DATABASE_URL: postgres://username:password@ep-xxx.region.neon.tech/client_db?sslmode=require
+      
+      JWT_ACCESS_TOKEN_SECRET: your-jwt-access-token-secret-change-in-production
+      JWT_REFRESH_TOKEN_SECRET: your-jwt-refresh-token-secret-change-in-production
+      PORT: 3000
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
+# Note: This configuration uses Neon cloud database
+# No local database service is required
+

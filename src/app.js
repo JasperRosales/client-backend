@@ -1,18 +1,19 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const app = express();
-
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import corsOptions from './config/cors.js';
+import authRoutes from './routes/auth.route.js';
 
 dotenv.config();
 
-// Middleware
-app.use(cors());
+const app = express();
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-
-// Root route
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to client-backend API',
@@ -21,14 +22,6 @@ app.get('/', (req, res) => {
   });
 });
 
-// Examples API route
-app.get('/api/examples', (req, res) => {
-  res.json({
-    message: 'Examples API endpoint',
-    status: 'success',
-    data: [],
-  });
-});
+app.use('/api/auth', authRoutes);
 
-
-module.exports = app;
+export default app;

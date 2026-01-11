@@ -1,11 +1,10 @@
-CREATE TYPE "public"."user_role" AS ENUM('user', 'admin', 'moderator');--> statement-breakpoint
 CREATE TABLE "users" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"password" varchar(255) NOT NULL,
-	"name" varchar(255),
-	"role" "user_role" DEFAULT 'user' NOT NULL,
-	"token" text,
+	"role" varchar(50) DEFAULT 'user' NOT NULL,
+	"refresh_token" text,
+	"refresh_token_expires_at" timestamp,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")

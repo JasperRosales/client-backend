@@ -5,6 +5,12 @@ node_modules/
 .env
 .env.local
 .env.*.local
+.env.neon
+
+# Docker Compose
+# Local development configuration (ignored)
+docker-compose.dev.yml
+docker-compose.local.yml
 
 # Debug logs
 npm-debug.log*
