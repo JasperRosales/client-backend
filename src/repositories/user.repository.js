@@ -39,5 +39,12 @@ export const userRepository = {
       .where(eq(users.refreshToken, refreshToken));
     return result[0] || null;
   },
+
+  async updatePassword(email, hashedPassword) {
+    await db
+      .update(users)
+      .set({ password: hashedPassword })
+      .where(eq(users.email, email));
+  },
 };
 

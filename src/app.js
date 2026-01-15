@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import corsOptions from './config/cors.js';
 import authRoutes from './routes/auth.route.js';
+import otpRoutes from './routes/otp.route.js';
 
 dotenv.config();
 
@@ -23,5 +24,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/otp', otpRoutes);
 
 export default app;
