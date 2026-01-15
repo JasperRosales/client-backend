@@ -14,11 +14,22 @@ const config = {
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
     maxAge: {
-      accessToken: 15 * 60 * 1000,
-      refreshToken: 3 * 24 * 60 * 60 * 1000,
+      accessToken: 15 * 60 * 1000, //15 minutes
+      refreshToken: 3 * 24 * 60 * 60 * 1000, //3 days
     },
   },
   bcryptSaltRounds: 10,
+  email: {
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: process.env.EMAIL_PORT || 587,
+    secure: false,
+    user: process.env.EMAIL_USER || 'example@gmail.com',
+    password: process.env.APP_PASSWORD || '',
+  },
+  otp: {
+    length: 6,
+    expiry: 20 * 60 * 1000, // 20 minutes 
+  },
 };
 
 export default config;

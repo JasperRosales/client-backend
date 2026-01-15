@@ -11,3 +11,12 @@ export const users = pgTable('users', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
+export const otps = pgTable('otps', {
+  id: serial('id').primaryKey(),
+  email: varchar('email', { length: 255 }).notNull(),
+  code: varchar('code', { length: 10 }).notNull(),
+  purpose: varchar('purpose', { length: 50 }).notNull().default('password_reset'),
+  expiresAt: timestamp('expires_at').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+

@@ -8,6 +8,13 @@
       "when": 1768113450148,
       "tag": "0000_deep_loa",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1768437198602,
+      "tag": "0001_useful_penance",
+      "breakpoints": true
     }
   ]
 }

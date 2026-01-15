@@ -146,5 +146,5 @@ npm run db:studio
 | POST | `/api/auth/register` | Register new user |
 | POST | `/api/auth/login` | User login |
 | POST | `/api/auth/logout` | User logout |
-| GET | `/api/auth/profile` | Get user profile (protected) |
-
+| POST | `/api/auth/request` | Request Otp |
+| POST | `/api/otp/verify` | Validate Otp |
