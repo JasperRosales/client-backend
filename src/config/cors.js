@@ -1,6 +1,20 @@
 
+// Get allowed origins from environment variable, with fallbacks for development
+const getAllowedOrigins = () => {
+  const envOrigins = process.env.ORIGIN?.split(',').map(origin => origin.trim()) || [];
+  
+  // Add development origins if in development mode
+  const devOrigins = process.env.NODE_ENV !== 'production' 
+    ? ['http://localhost:5173', 'http://localhost:3000']
+    : [];
+  
+  const allOrigins = [...new Set([...envOrigins, ...devOrigins])];
+  
+  return allOrigins.length > 0 ? allOrigins : '*';
+};
+
 const corsOptions = {
-  origin: process.env.ORIGIN || '*',
+  origin: getAllowedOrigins(),
   methods: [
     'GET',
     'POST',

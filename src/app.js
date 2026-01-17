@@ -15,6 +15,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+const origin = corsOptions.origin;
+const originStr = Array.isArray(origin) ? origin.join(', ') : origin;
+console.log(`CORS allowed origins: ${originStr}`);
+
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to client-backend API',
