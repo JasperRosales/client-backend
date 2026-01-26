@@ -16,11 +16,13 @@ services:
       JWT_ACCESS_TOKEN_SECRET: your-jwt-access-token-secret-change-in-production
       JWT_REFRESH_TOKEN_SECRET: your-jwt-refresh-token-secret-change-in-production
 
+      GEMINI_API_KEY: your-gemini-api-key
       EMAIL_HOST: smtp.gmail.com
       EMAIL_PORT: 587
       EMAIL_USER: example@gmail.com
       APP_PASSWORD: your-google-app-password
 
+      ORIGIN: http://localhost:5173
       PORT: 3000
       NODE_ENV: development
     ports:

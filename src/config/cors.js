@@ -1,3 +1,4 @@
+import "dotenv/config";
 
 // Get allowed origins from environment variable, with fallbacks for development
 const getAllowedOrigins = () => {

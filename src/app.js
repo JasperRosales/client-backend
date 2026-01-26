@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to client-backend API',
     status: 'success',
-    version: '1.0.0',
+    version: '3.0.0',
   });
 });
 

@@ -81,6 +81,18 @@ export class AuthService {
     await this.userRepository.clearRefreshToken(userId);
   }
 
+  async deleteUser(userId) {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    await this.userRepository.clearRefreshToken(userId);
+    await this.userRepository.deleteById(userId);
+
+    return { message: 'User deleted successfully' };
+  }
+
   async createTokens(userId, email) {
     const accessToken = generateAccessToken({ userId, email });
     const refreshToken = generateRefreshToken({ userId, email });
