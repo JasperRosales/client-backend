@@ -28,7 +28,11 @@ const config = {
   },
   otp: {
     length: 6,
-    expiry: 20 * 60 * 1000, // 20 minutes 
+    expiry: 20 * 60 * 1000, // 20 minutes
+  },
+  gemini: {
+    apiKey: process.env.GEMINI_API_KEY || '',
+    model: process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp',
   },
 };
 
