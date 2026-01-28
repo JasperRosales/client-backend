@@ -6,6 +6,7 @@ import corsOptions from './config/cors.js';
 import authRoutes from './routes/auth.route.js';
 import otpRoutes from './routes/otp.route.js';
 import chatRoutes from './routes/chat.route.js';
+import emailRoutes from './routes/email.route.js';
 
 dotenv.config();
 
@@ -24,12 +25,14 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to client-backend API',
     status: 'success',
-    version: '3.0.0',
+    version: '4.0.0',
   });
 });
 
 app.use('/api/auth', authRoutes);
 app.use('/api/otp', otpRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/email', emailRoutes);
 
 export default app;
+

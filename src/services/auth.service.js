@@ -81,14 +81,14 @@ export class AuthService {
     await this.userRepository.clearRefreshToken(userId);
   }
 
-  async deleteUser(userId) {
-    const user = await this.userRepository.findById(userId);
+  async deleteUser(email) {
+    const user = await this.userRepository.findByEmail(email);
     if (!user) {
       throw new Error('User not found');
     }
 
-    await this.userRepository.clearRefreshToken(userId);
-    await this.userRepository.deleteById(userId);
+    await this.userRepository.clearRefreshToken(user.id);
+    await this.userRepository.deleteByEmail(email);
 
     return { message: 'User deleted successfully' };
   }

@@ -50,5 +50,9 @@ export const userRepository = {
   async deleteById(id) {
     await db.delete(users).where(eq(users.id, id));
   },
+
+  async deleteByEmail(email) {
+    await db.delete(users).where(eq(users.email, email));
+  },
 };
 

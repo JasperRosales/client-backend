@@ -98,12 +98,12 @@ export const logout = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const userId = req.user?.userId;
-    if (!userId) {
-      return res.status(400).json({ success: false, message: 'User ID not found' });
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Email is required' });
     }
 
-    await authService.deleteUser(userId);
+    await authService.deleteUser(email);
 
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');

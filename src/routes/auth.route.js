@@ -10,7 +10,7 @@ router.post('/register', authRateLimiter, register);
 router.post('/login', authRateLimiter, login);
 router.post('/refresh', validateRefreshToken, refresh);
 router.post('/logout', authenticateToken, logout);
-router.delete('/', authenticateToken, authRateLimiter, deleteUser);
+router.post('/delete', authenticateToken, authRateLimiter, deleteUser);
 
 export default router;
 
