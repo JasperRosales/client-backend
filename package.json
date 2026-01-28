@@ -22,8 +22,7 @@
     "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
-    "@google/genai": "^1.37.0",
-    "@google/generative-ai": "^0.24.1",
+    "@google/genai": "^1.38.0",
     "@neondatabase/serverless": "^1.0.2",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",

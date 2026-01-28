@@ -2,16 +2,16 @@ import "dotenv/config";
 
 // Get allowed origins from environment variable, with fallbacks for development
 const getAllowedOrigins = () => {
-  const envOrigins = process.env.ORIGIN?.split(',').map(origin => origin.trim()) || [];
-  
-  // Add development origins if in development mode
-  const devOrigins = process.env.NODE_ENV !== 'production' 
-    ? ['http://localhost:5173', 'http://localhost:3000']
+  const envOrigins = process.env.ORIGIN
+    ? process.env.ORIGIN.split(",").map(o => o.trim())
     : [];
-  
-  const allOrigins = [...new Set([...envOrigins, ...devOrigins])];
-  
-  return allOrigins.length > 0 ? allOrigins : '*';
+
+  const devOrigins =
+    process.env.NODE_ENV !== "production"
+      ? ["http://localhost:5173", "http://localhost:3000"]
+      : [];
+
+  return [...new Set([...envOrigins, ...devOrigins])];
 };
 
 const corsOptions = {
