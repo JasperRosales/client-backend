@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import bcrypt from 'bcryptjs';
 import config from '../config/env.js';
 import { otpRepository } from '../repositories/otp.repository.js';
@@ -9,15 +9,7 @@ export class OtpService {
   constructor(otpRepository, userRepository) {
     this.otpRepository = otpRepository;
     this.userRepository = userRepository;
-    this.transporter = nodemailer.createTransport({
-      host: config.email.host,
-      port: config.email.port,
-      secure: config.email.secure,
-      auth: {
-        user: config.email.user,
-        pass: config.email.password,
-      },
-    });
+    this.resend = new Resend(config.resend.apiKey);
   }
 
   generateOtp() {
@@ -47,9 +39,9 @@ export class OtpService {
   }
 
   async sendOtpEmail(email, code) {
-    const mailOptions = {
-      from: config.email.user,
-      to: email,
+    const { data, error } = await this.resend.emails.send({
+      from: 'Password Reset <onboarding@resend.dev>',
+      to: [email],
       subject: 'Password Reset OTP',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -64,9 +56,13 @@ export class OtpService {
           <p style="color: #888; font-size: 12px;">This is an automated message, please do not reply.</p>
         </div>
       `,
-    };
+    });
 
-    await this.transporter.sendMail(mailOptions);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
   }
 
   async requestOtp(email) {

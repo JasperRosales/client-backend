@@ -1,51 +1,36 @@
 import "dotenv/config";
 
-// Get allowed origins from environment variable, with fallbacks for development
-const getAllowedOrigins = () => {
-  const envOrigins = process.env.ORIGIN
-    ? process.env.ORIGIN.split(",").map(o => o.trim())
-    : [];
+const allowedOrigins = process.env.ORIGIN
+  ? process.env.ORIGIN.split(",").map(o => o.trim().replace(/\/$/, ""))
+  : [];
 
-  const devOrigins =
-    process.env.NODE_ENV !== "production"
-      ? ["http://localhost:5173", "http://localhost:3000"]
-      : [];
-
-  return [...new Set([...envOrigins, ...devOrigins])];
-};
+if (process.env.NODE_ENV !== "production") {
+  allowedOrigins.push("http://localhost:5173", "http://localhost:3000");
+}
 
 const corsOptions = {
-  origin: getAllowedOrigins(),
-  methods: [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-  ],
-  
-  allowedHeaders: [
-    'Content-Type',
-    'Authorization',
-    'X-Requested-With',
-    'Accept',
-    'Origin',
-    'Access-Control-Request-Method',
-    'Access-Control-Request-Headers'
-  ],
-  
-  exposedHeaders: [
-    'Content-Length',
-    'X-Requested-With'
-  ],
-  
-  credentials: true,
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); 
 
-  preflightContinue: false,
-  
-  optionsSuccessStatus: 204
+    const normalizedOrigin = origin.replace(/\/$/, "");
+    if (allowedOrigins.includes(normalizedOrigin)) {
+      return callback(null, origin); 
+    }
+
+    callback(new Error(`CORS blocked: ${origin}`));
+  },
+  credentials: true, 
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "X-Requested-With",
+    "Accept",
+    "Origin",
+    "Access-Control-Request-Method",
+    "Access-Control-Request-Headers"
+  ],
+  exposedHeaders: ["Content-Length", "X-Requested-With"],
 };
 
 export default corsOptions;
-

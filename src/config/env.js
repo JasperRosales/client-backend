@@ -20,11 +20,15 @@ const config = {
   },
   bcryptSaltRounds: 10,
   email: {
+    // SMTP configuration (deprecated - using Resend API)
     host: process.env.EMAIL_HOST || 'smtp.gmail.com',
     port: process.env.EMAIL_PORT || 587,
     secure: false,
     user: process.env.EMAIL_USER || 'example@gmail.com',
     password: process.env.APP_PASSWORD || '',
+  },
+  resend: {
+    apiKey: process.env.RESEND_API_KEY || '',
   },
   otp: {
     length: 6,

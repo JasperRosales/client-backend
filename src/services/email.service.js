@@ -1,23 +1,15 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import config from '../config/env.js';
 
 export class EmailService {
   constructor() {
-    this.transporter = nodemailer.createTransport({
-      host: config.email.host,
-      port: config.email.port,
-      secure: config.email.secure,
-      auth: {
-        user: config.email.user,
-        pass: config.email.password,
-      },
-    });
+    this.resend = new Resend(config.resend.apiKey);
   }
 
   async sendContactMessage(name, email, message) {
-    const mailOptions = {
-      from: config.email.user,
-      to: config.email.user,
+    const { data, error } = await this.resend.emails.send({
+      from: 'Contact Form <contact@smartwardrobe.com>',
+      to: [config.email.user],
       subject: `New Contact Form Message from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -33,9 +25,13 @@ export class EmailService {
         </div>
       `,
       replyTo: email,
-    };
+    });
 
-    await this.transporter.sendMail(mailOptions);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
   }
 }
 
